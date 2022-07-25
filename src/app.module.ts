@@ -1,22 +1,21 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
-import {
-  DEBUG,
-  ENV_FILE_PATH,
-  GRAPHQL_SCHEMA_PATH,
-  PLAYGROUND,
-} from './settings';
+import { join } from 'path';
+import { cwd } from 'process';
+
+import { PrismaModule } from './prisma';
+import { UsersModule } from './users';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ envFilePath: ENV_FILE_PATH }),
+    UsersModule,
+    PrismaModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: GRAPHQL_SCHEMA_PATH,
-      debug: DEBUG,
-      playground: PLAYGROUND,
+      autoSchemaFile: join(cwd(), 'src/schema.graphql'),
+      debug: true,
+      playground: true,
     }),
   ],
 })

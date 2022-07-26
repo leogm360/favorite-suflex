@@ -11,17 +11,50 @@ datasource db {
 }
 
 model User {
-  id String @id @default(uuid())
+  id        String     @id @default(uuid())
+  email     String     @unique
+  password  String
+  name      String
+  lastLogin DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  createdAt DateTime   @default(now())
+  favorites Favorite[]
+}
 
-  email String @unique
+model Favorite {
+  id         Int       @id @default(autoincrement())
+  name       String    @unique
+  status     String
+  species    String
+  type       String
+  gender     String
+  origin     Origin    @relation(fields: [originId], references: [id])
+  location   Location  @relation(fields: [locationId], references: [id])
+  image      String
+  episodes   Episode[]
+  url        String
+  created    DateTime
+  users      User[]
+  originId   Int
+  locationId Int
+}
 
-  password String
+model Origin {
+  id       Int        @id @default(autoincrement())
+  name     String     @unique
+  url      String     @unique
+  favorite Favorite[]
+}
 
-  name String
+model Location {
+  id       Int        @id @default(autoincrement())
+  name     String     @unique
+  url      String     @unique
+  favorite Favorite[]
+}
 
-  lastLogin DateTime @default(now())
-
-  updatedAt DateTime @updatedAt
-
-  createdAt DateTime @default(now())
+model Episode {
+  id       Int        @id @default(autoincrement())
+  url      String     @unique
+  favorite Favorite[]
 }

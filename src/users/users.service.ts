@@ -1,13 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
-import { PrismaService } from 'src/prisma';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 
+import { FavoritesService } from 'src/favorites';
+import { PrismaService } from 'src/prisma';
+import { AddUserFavoriteInputs } from './dto/add-favorite.input';
+
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly favoritesService: FavoritesService,
+  ) {}
 
   async create(createUserInput: CreateUserInput): Promise<User> {
     const { email, name, password } = createUserInput;
@@ -58,6 +64,20 @@ export class UsersService {
 
     return updatedUser;
   }
+
+  async addFavorite(
+    addUserFavoriteInputs: AddUserFavoriteInputs,
+  ): Promise<User> {
+    const { userId, ...createFavoriteInput } = addUserFavoriteInputs;
+
+    await this.favoritesService.create(userId, createFavoriteInput);
+
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+
+    return user as User;
+  }
+
+  // async removeFavorite(id: number): Promise<User> {}
 
   async remove(id: string): Promise<User> {
     const user = await this.prisma.user.findUnique({ where: { id } });

@@ -1,4 +1,4 @@
 export const settings = {
-  secret: 'My Secret Key',
+  secret: process.env.SIGNING_KEY,
   SignOptions: { expiresIn: '1d' },
 };

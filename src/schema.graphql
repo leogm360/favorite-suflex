@@ -96,6 +96,11 @@ type User {
   createdAt: String
 }
 
+type Auth {
+  """User jwt authentication token"""
+  token: String!
+}
+
 type Query {
   users: [User!]!
   user(id: String!): User!
@@ -106,6 +111,7 @@ type Mutation {
   updateUser(updateUserInput: UpdateUserInput!): User!
   addFavorite(addUserFavoriteInputs: AddUserFavoriteInputs!): User!
   removeUser(id: String!): User!
+  login(loginUserInput: LoginUserInput!): Auth!
 }
 
 input CreateUserInput {
@@ -185,4 +191,12 @@ input LocationInput {
 
   """Location unique url"""
   locationUrl: String!
+}
+
+input LoginUserInput {
+  """User unique login email"""
+  email: String!
+
+  """User password"""
+  password: String!
 }

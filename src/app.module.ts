@@ -4,6 +4,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { cwd } from 'process';
 
+import { AuthModule } from './auth/auth.module';
 import { FavoritesModule } from './favorites';
 import { PrismaModule } from './prisma';
 import { UsersModule } from './users';
@@ -11,6 +12,7 @@ import { UsersModule } from './users';
 @Module({
   imports: [
     PrismaModule,
+    AuthModule,
     UsersModule,
     FavoritesModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({

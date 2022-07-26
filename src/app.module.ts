@@ -20,6 +20,7 @@ import { UsersModule } from './users';
       autoSchemaFile: join(cwd(), 'src/schema.graphql'),
       debug: false,
       playground: false,
+      persistedQueries: false,
     }),
   ],
 })

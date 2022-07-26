@@ -57,7 +57,6 @@ export class UsersResolver {
     @Args('addUserFavoriteInputs') addUserFavoriteInputs: AddUserFavoriteInputs,
     @CurrentUser() user: any,
   ) {
-    console.log(user);
     return this.usersService.addFavorite(addUserFavoriteInputs);
   }
 

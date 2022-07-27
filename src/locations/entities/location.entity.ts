@@ -8,6 +8,6 @@ export class Location {
   @Field({ description: 'Location unique name' })
   name: string;
 
-  @Field({ description: 'Location unique url' })
+  @Field({ description: 'Location unique url', nullable: true })
   url: string;
 }

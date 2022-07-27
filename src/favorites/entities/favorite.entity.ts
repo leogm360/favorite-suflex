@@ -23,10 +23,10 @@ export class Favorite {
   @Field({ description: 'Favorite gender' })
   gender: string;
 
-  @Field({ description: 'Favorite origin' })
+  @Field(() => Origin, { description: 'Favorite origin' })
   origin: Origin;
 
-  @Field({ description: 'Favorite location' })
+  @Field(() => Location, { description: 'Favorite location' })
   location: Location;
 
   @Field({ description: 'Favorite image url' })
@@ -34,9 +34,6 @@ export class Favorite {
 
   @Field(() => [Episode], { description: 'Favorite character episodes' })
   episodes: Episode[];
-
-  @Field({ description: 'Favorite profile url' })
-  url: string;
 
   @Field({ description: 'Favorite created at' })
   created: string;

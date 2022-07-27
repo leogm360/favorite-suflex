@@ -8,6 +8,6 @@ export class Origin {
   @Field({ description: 'Origin unique name' })
   name: string;
 
-  @Field({ description: 'Origin unique url' })
+  @Field({ description: 'Origin unique url', nullable: true })
   url: string;
 }

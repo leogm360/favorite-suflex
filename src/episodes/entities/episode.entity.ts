@@ -5,6 +5,6 @@ export class Episode {
   @Field(() => Int, { description: 'Episode unique identification' })
   id: number;
 
-  @Field({ description: 'Episode unique url' })
+  @Field({ description: 'Episode unique url', nullable: true })
   url: string;
 }

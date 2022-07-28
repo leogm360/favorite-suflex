@@ -20,7 +20,6 @@ CREATE TABLE "Favorite" (
     "type" TEXT NOT NULL,
     "gender" TEXT NOT NULL,
     "image" TEXT NOT NULL,
-    "url" TEXT NOT NULL,
     "created" TIMESTAMP(3) NOT NULL,
     "originId" INTEGER NOT NULL,
     "locationId" INTEGER NOT NULL,

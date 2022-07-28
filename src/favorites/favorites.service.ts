@@ -19,7 +19,6 @@ export class FavoritesService {
       image,
       species,
       type,
-      url,
       created,
       episodes,
       location: { locationName, locationUrl },
@@ -38,7 +37,6 @@ export class FavoritesService {
         image,
         species,
         type,
-        url,
         created,
         episodes: {
           connectOrCreate: episodes.map((url) => ({

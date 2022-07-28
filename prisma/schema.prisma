@@ -32,7 +32,6 @@ model Favorite {
   location   Location  @relation(fields: [locationId], references: [id])
   image      String
   episodes   Episode[]
-  url        String
   created    DateTime
   users      User[]
   originId   Int

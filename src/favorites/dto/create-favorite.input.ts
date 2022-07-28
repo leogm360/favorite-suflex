@@ -5,7 +5,7 @@ class OriginInput {
   @Field({ description: 'Origin unique name' })
   originName: string;
 
-  @Field({ description: 'Origin unique url' })
+  @Field({ description: 'Origin unique url', nullable: true })
   originUrl: string;
 }
 
@@ -14,7 +14,7 @@ class LocationInput {
   @Field({ description: 'Location unique name' })
   locationName: string;
 
-  @Field({ description: 'Location unique url' })
+  @Field({ description: 'Location unique url', nullable: true })
   locationUrl: string;
 }
 
@@ -46,9 +46,6 @@ export class CreateFavoriteInput {
 
   @Field(() => [String], { description: 'Favorite episodes' })
   episodes: string[];
-
-  @Field({ description: 'Favorite profile url' })
-  url: string;
 
   @Field({ description: 'Favorite created at' })
   created: string;

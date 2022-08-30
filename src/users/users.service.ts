@@ -3,10 +3,9 @@ import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
-
+import { AddUserFavoriteInputs } from './dto/add-favorite.input';
 import { FavoritesService } from 'src/favorites';
 import { PrismaService } from 'src/prisma';
-import { AddUserFavoriteInputs } from './dto/add-favorite.input';
 
 @Injectable()
 export class UsersService {
@@ -77,7 +76,13 @@ export class UsersService {
     return user as User;
   }
 
-  // async removeFavorite(id: number): Promise<User> {}
+  async removeFavorite(userId: string, favoriteId: string): Promise<User> {
+    await this.favoritesService.remove(userId, favoriteId);
+
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+
+    return user as User;
+  }
 
   async remove(id: string): Promise<User> {
     const user = await this.prisma.user.findUnique({ where: { id } });

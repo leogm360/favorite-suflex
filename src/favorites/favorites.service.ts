@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Int } from '@nestjs/graphql';
 
 import { Favorite } from '@prisma/client';
 import { PrismaService } from 'src/prisma';
@@ -63,6 +64,17 @@ export class FavoritesService {
         location: true,
         origin: true,
       },
+    });
+
+    return favorite;
+  }
+
+  async remove(userId: string, favoriteId: string): Promise<Favorite> {
+    const favoriteIdToNumber = Number(favoriteId);
+
+    const favorite = await this.prisma.favorite.update({
+      where: { id: favoriteIdToNumber },
+      data: { users: { disconnect: { id: userId } } },
     });
 
     return favorite;

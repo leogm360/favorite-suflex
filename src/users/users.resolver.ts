@@ -8,13 +8,13 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 import { Auth, AuthService, CurrentUser, JWTAuthGuard } from 'src/auth';
+import { User } from './entities/user.entity';
+import { UsersService } from './users.service';
 import { Favorite, FavoritesService } from 'src/favorites';
 import { AddUserFavoriteInputs } from './dto/add-favorite.input';
 import { CreateUserInput } from './dto/create-user.input';
 import { LoginUserInput } from './dto/login.input';
 import { UpdateUserInput } from './dto/update-user.input';
-import { User } from './entities/user.entity';
-import { UsersService } from './users.service';
 
 @Resolver(() => User)
 export class UsersResolver {
@@ -29,49 +29,53 @@ export class UsersResolver {
     return this.favoritesSersvice.getUserFavorites(user.id);
   }
 
-  @Mutation(() => User)
+  @Mutation(() => User, { name: 'createUser' })
   createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
     return this.usersService.create(createUserInput);
   }
 
-  @Query(() => [User], { name: 'users' })
-  findAll() {
+  @Query(() => [User], { name: 'findAllUsers' })
+  findAllUsers() {
     return this.usersService.findAll();
   }
 
-  @Query(() => User, { name: 'user' })
+  @Query(() => User, { name: 'findOneUser' })
   @UseGuards(JWTAuthGuard)
-  findOne(@Args('id') id: string) {
+  findOneUser(@Args('id') id: string) {
     return this.usersService.findOne(id);
   }
 
-  @Mutation(() => User)
+  @Mutation(() => User, { name: 'updateUser' })
   @UseGuards(JWTAuthGuard)
   updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
     return this.usersService.update(updateUserInput.id, updateUserInput);
   }
 
-  @Mutation(() => User)
+  @Mutation(() => User, { name: 'addUserFavorite' })
   @UseGuards(JWTAuthGuard)
-  addFavorite(
+  addUserFavorite(
     @Args('addUserFavoriteInputs') addUserFavoriteInputs: AddUserFavoriteInputs,
     @CurrentUser() user: any,
   ) {
     return this.usersService.addFavorite(addUserFavoriteInputs);
   }
 
-  // @Mutation(() => User)
-  // removeFavorite(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
-  //   return ;
-  // }
+  @Mutation(() => User, { name: 'removeUserFavorite' })
+  @UseGuards(JWTAuthGuard)
+  removeUserFavorite(
+    @Args('userId') userId: string,
+    @Args('favoriteId') favoriteId: string,
+  ) {
+    return this.usersService.removeFavorite(userId, favoriteId);
+  }
 
-  @Mutation(() => User)
+  @Mutation(() => User, { name: 'removeUser' })
   @UseGuards(JWTAuthGuard)
   removeUser(@Args('id') id: string) {
     return this.usersService.remove(id);
   }
 
-  @Mutation(() => Auth)
+  @Mutation(() => Auth, { name: 'login' })
   login(@Args('loginUserInput') loginUserInput: LoginUserInput) {
     const { email, password } = loginUserInput;
 

@@ -4,7 +4,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { cwd } from 'process';
 
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './auth';
 import { FavoritesModule } from './favorites';
 import { PrismaModule } from './prisma';
 import { UsersModule } from './users';
@@ -18,8 +18,8 @@ import { UsersModule } from './users';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(cwd(), 'src/schema.graphql'),
-      debug: false,
-      playground: false,
+      debug: true,
+      playground: true,
       persistedQueries: false,
     }),
   ],

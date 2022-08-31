@@ -22,8 +22,8 @@ import { UsersModule } from './users';
       playground: false,
       persistedQueries: false,
       cors: {
+        origin: 'http://localhost:5173',
         credentials: true,
-        origin: 'http://localhost:5173/',
       },
     }),
   ],

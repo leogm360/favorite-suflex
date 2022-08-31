@@ -21,6 +21,10 @@ import { UsersModule } from './users';
       debug: false,
       playground: false,
       persistedQueries: false,
+      cors: {
+        credentials: true,
+        origin: true,
+      },
     }),
   ],
 })

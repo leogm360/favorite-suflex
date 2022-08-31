@@ -23,7 +23,7 @@ import { UsersModule } from './users';
       persistedQueries: false,
       cors: {
         credentials: true,
-        origin: true,
+        origin: 'http://localhost:5173/',
       },
     }),
   ],
